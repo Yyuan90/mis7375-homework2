@@ -1,0 +1,237 @@
+ <!--
+Program name: patient-form.html
+Author: Ye Yuan
+Date created: 2026-02-26
+Date last edited: 2026-02-27
+Version: 1.0
+Description: Patient Registration Form (client-side only) with external CSS, banner/logo, dynamic date, and a form aligned using a table.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HoustonCare Medical - Patient Registration</title>
+
+  <!-- External CSS file (required) -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- ===================== HEADER / BANNER ===================== -->
+  <div id="header">
+    <div class="banner-left">
+      <img src="7375mis.png" alt="HoustonCare Medical Logo" class="logo">
+    </div>
+
+    <div class="banner-center">
+      <h1>HoustonCare Medical</h1>
+      <div class="subtitle">Patient Registration</div>
+    </div>
+
+    <div class="banner-right">
+      <div class="today">
+        Today is: <span id="todayText"></span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ===================== MAIN FORM ===================== -->
+  <div id="main">
+    <h2>Create Your Account</h2>
+
+    <!-- NOTE: client-side only => do NOT include method -->
+    <form action="thankyou.html">
+
+      <!-- Use TABLE to align fields (required) -->
+      <table class="form-table">
+        <tr>
+          <td class="labelcell"><label for="first_name">First Name (max 30):</label></td>
+          <td><input type="text" id="first_name" name="first_name" maxlength="30" required></td>
+
+          <td class="labelcell"><label for="middle_init">Middle Initial (1):</label></td>
+          <td><input type="text" id="middle_init" name="middle_init" maxlength="1"></td>
+        </tr>
+
+        <tr>
+          <td class="labelcell"><label for="last_name">Last Name (max 30):</label></td>
+          <td><input type="text" id="last_name" name="last_name" maxlength="30" required></td>
+
+          <td class="labelcell"><label for="dob">Date of Birth:</label></td>
+          <td>
+            <!-- Use text to enforce MM/DD/YYYY requirement -->
+            <input type="text" id="dob" name="dob" placeholder="MM/DD/YYYY"
+                   pattern="^(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])\/\d{4}$"
+                   title="Use MM/DD/YYYY format" required>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="labelcell"><label for="ssn">Social Security (9 digits):</label></td>
+          <td>
+            <!-- obscured / masked -->
+            <input type="password" id="ssn" name="ssn" minlength="9" maxlength="11"
+                   placeholder="*********"
+                   title="Enter 9-11 characters, do NOT use real SSN" required>
+          </td>
+
+          <td class="labelcell"><label for="email">Email:</label></td>
+          <td><input type="email" id="email" name="email" maxlength="100" required></td>
+        </tr>
+
+        <tr>
+          <td class="labelcell"><label for="address1">Address Line 1 (max 30):</label></td>
+          <td><input type="text" id="address1" name="address1" maxlength="30" required></td>
+
+          <td class="labelcell"><label for="address2">Address Line 2 (optional):</label></td>
+          <td><input type="text" id="address2" name="address2" maxlength="30"></td>
+        </tr>
+
+        <tr>
+          <td class="labelcell"><label for="city">City (max 30):</label></td>
+          <td><input type="text" id="city" name="city" maxlength="30" required></td>
+
+          <td class="labelcell"><label for="state">State:</label></td>
+          <td>
+            <select id="state" name="state" required>
+              <option value="">Select</option>
+              <option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option><option value="AR">AR</option>
+              <option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="DE">DE</option>
+              <option value="DC">DC</option>
+              <option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="ID">ID</option>
+              <option value="IL">IL</option><option value="IN">IN</option><option value="IA">IA</option><option value="KS">KS</option>
+              <option value="KY">KY</option><option value="LA">LA</option><option value="ME">ME</option><option value="MD">MD</option>
+              <option value="MA">MA</option><option value="MI">MI</option><option value="MN">MN</option><option value="MS">MS</option>
+              <option value="MO">MO</option><option value="MT">MT</option><option value="NE">NE</option><option value="NV">NV</option>
+              <option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NY">NY</option>
+              <option value="NC">NC</option><option value="ND">ND</option><option value="OH">OH</option><option value="OK">OK</option>
+              <option value="OR">OR</option><option value="PA">PA</option><option value="PR">PR</option>
+              <option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option>
+              <option value="TX">TX</option><option value="UT">UT</option><option value="VT">VT</option><option value="VA">VA</option>
+              <option value="WA">WA</option><option value="WV">WV</option><option value="WI">WI</option><option value="WY">WY</option>
+            </select>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="labelcell"><label for="zip">Zip Code (5-10 digits):</label></td>
+          <td>
+            <!-- NOT a NUMBER type -->
+            <input type="text" id="zip" name="zip" minlength="5" maxlength="10"
+                   pattern="^\d{5}(\d{1,5})?$"
+                   title="Enter 5 to 10 digits" required>
+          </td>
+
+          <td class="labelcell"><label for="user_id">Desired User ID (max 20):</label></td>
+          <td>
+            <input type="text" id="user_id" name="user_id" maxlength="20"
+                   pattern="^[A-Za-z0-9]{4,20}$"
+                   title="4-20 letters/numbers only" required>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="labelcell"><label for="password">Password:</label></td>
+          <td>
+            <input type="password" id="password" name="password" minlength="8" maxlength="50" required>
+          </td>
+
+          <td class="labelcell"><label for="confirm_password">Re-enter Password:</label></td>
+          <td>
+            <input type="password" id="confirm_password" name="confirm_password" minlength="8" maxlength="50" required>
+          </td>
+        </tr>
+      </table>
+
+      <!-- Text area requirement: at least 3 lines x 50 columns -->
+      <div class="section">
+        <label for="symptoms"><strong>Current Symptoms</strong> (text area 3 lines x 50 columns):</label><br>
+        <textarea id="symptoms" name="symptoms" rows="3" cols="50" required></textarea>
+      </div>
+
+      <!-- Checkboxes: 1 section, 5+ choices -->
+      <div class="section card">
+        <div class="section-title">Medical History (check 0+):</div>
+        <label><input type="checkbox" name="medical_history" value="Diabetes"> Diabetes</label><br>
+        <label><input type="checkbox" name="medical_history" value="High BP"> High BP</label><br>
+        <label><input type="checkbox" name="medical_history" value="Asthma"> Asthma</label><br>
+        <label><input type="checkbox" name="medical_history" value="Smoking"> Smoking</label><br>
+        <label><input type="checkbox" name="medical_history" value="Heart Condition"> Heart Condition</label>
+      </div>
+
+      <!-- Radio Buttons: at least 3 sets -->
+      <div class="section card">
+        <div class="section-title">Gender:</div>
+        <label><input type="radio" name="gender" value="Male" required> Male</label><br>
+        <label><input type="radio" name="gender" value="Female"> Female</label><br>
+        <label><input type="radio" name="gender" value="Other"> Other</label>
+      </div>
+
+      <div class="section card">
+        <div class="section-title">Vaccinated:</div>
+        <label><input type="radio" name="vaccinated" value="Yes" required> Yes</label>
+        <label><input type="radio" name="vaccinated" value="No"> No</label>
+      </div>
+
+      <div class="section card">
+        <div class="section-title">Has Insurance:</div>
+        <label><input type="radio" name="has_insurance" value="Yes" required> Yes</label>
+        <label><input type="radio" name="has_insurance" value="No"> No</label>
+      </div>
+
+      <!-- Slider: at least 1 -->
+      <div class="section card">
+        <div class="section-title">Health Rating (1 to 10 slider):</div>
+        <input type="range" id="health_rating" name="health_rating" min="1" max="10" value="5">
+        <span id="ratingValue">5</span>
+      </div>
+
+      <!-- Buttons -->
+      <div class="buttons">
+        <input type="reset" value="CLEAR AND START OVER" class="btn secondary">
+        <input type="submit" value="Submit" class="btn primary">
+      </div>
+    </form>
+  </div>
+
+  <!-- ===================== FOOTER ===================== -->
+  <div id="footer">
+    <div class="footer-left">
+      <strong>HoustonCare Medical</strong><br>
+      PO BOX 18881<br>
+      Sugar Land TX 77496
+    </div>
+
+    <div class="footer-center">
+      <button type="button" class="contact-btn" onclick="alert('Contact us at: info@houstoncaremedical.com');">
+        CONTACT US
+      </button>
+    </div>
+
+    <div class="footer-right">
+      <a href="#" class="social">Facebook</a>
+      <a href="#" class="social">Twitter</a>
+      <a href="#" class="social">Instagram</a>
+    </div>
+  </div>
+
+  <!-- ===================== INLINE JAVASCRIPT (DATE + SLIDER) ===================== -->
+  <script>
+    // Dynamic Date in banner
+    (function () {
+      const d = new Date();
+      const opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      document.getElementById('todayText').textContent = d.toLocaleDateString('en-US', opts);
+    })();
+
+    // Slider value display
+    const slider = document.getElementById('health_rating');
+    const output = document.getElementById('ratingValue');
+    slider.addEventListener('input', function () {
+      output.textContent = slider.value;
+    });
+  </script>
+</body>
+</html>

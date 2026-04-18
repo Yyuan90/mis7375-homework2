@@ -55,6 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return el ? el.value.trim() : "";
     }
 
+    // ===================== VALIDATION FUNCTIONS =====================
     function validateFirstName() {
         const value = getValue("first_name");
         const pattern = /^[A-Za-z'-]{1,30}$/;
@@ -62,6 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
             setError("firstNameError", "First name: letters, apostrophes, and dashes only.");
             return false;
         }
+        setError("firstNameError", "");
         return true;
     }
 
@@ -72,16 +74,18 @@ document.addEventListener("DOMContentLoaded", function () {
             setError("middleInitError", "Middle initial must be one letter or blank.");
             return false;
         }
+        setError("middleInitError", "");
         return true;
     }
 
     function validateLastName() {
         const value = getValue("last_name");
-        const pattern = /^[A-Za-z'-]{1,30}(?:\s?(?:2nd|3rd|4th|5th))?$/;
+        const pattern = /^[A-Za-z'-]{1,30}$/;
         if (!pattern.test(value)) {
-            setError("lastNameError", "Last name allows letters, apostrophes, dashes, and optional 2nd/3rd/4th/5th.");
+            setError("lastNameError", "Last name: letters, apostrophes, and dashes only.");
             return false;
         }
+        setError("lastNameError", "");
         return true;
     }
 
@@ -109,26 +113,45 @@ document.addEventListener("DOMContentLoaded", function () {
             return false;
         }
 
+        setError("dobError", "");
         return true;
+    }
+
+    function formatSsnInput() {
+        const ssnInput = document.getElementById("ssn");
+        let value = ssnInput.value.replace(/\D/g, "").substring(0, 9);
+
+        if (value.length > 5) {
+            value = value.substring(0, 3) + "-" + value.substring(3, 5) + "-" + value.substring(5);
+        } else if (value.length > 3) {
+            value = value.substring(0, 3) + "-" + value.substring(3);
+        }
+
+        ssnInput.value = value;
     }
 
     function validateSsn() {
         const value = getValue("ssn");
-        const pattern = /^\d{9,11}$/;
+        const pattern = /^\d{3}-\d{2}-\d{4}$/;
         if (!pattern.test(value)) {
-            setError("ssnError", "ID / SSN field must be 9 to 11 digits.");
+            setError("ssnError", "ID / SSN must be in 999-99-9999 format.");
             return false;
         }
+        setError("ssnError", "");
         return true;
     }
 
     function validateEmail() {
-        const value = getValue("email");
+        const input = document.getElementById("email");
+        input.value = input.value.trim().toLowerCase();
+
+        const value = input.value;
         const pattern = /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/;
         if (!pattern.test(value)) {
             setError("emailError", "Email must be in name@domain.tld format.");
             return false;
         }
+        setError("emailError", "");
         return true;
     }
 
@@ -139,6 +162,7 @@ document.addEventListener("DOMContentLoaded", function () {
             setError("phoneError", "Phone must be in 000-000-0000 format.");
             return false;
         }
+        setError("phoneError", "");
         return true;
     }
 
@@ -148,6 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
             setError("address1Error", "Address Line 1 must be 2 to 30 characters.");
             return false;
         }
+        setError("address1Error", "");
         return true;
     }
 
@@ -157,6 +182,7 @@ document.addEventListener("DOMContentLoaded", function () {
             setError("address2Error", "Address Line 2 must be 2 to 30 characters if entered.");
             return false;
         }
+        setError("address2Error", "");
         return true;
     }
 
@@ -166,6 +192,7 @@ document.addEventListener("DOMContentLoaded", function () {
             setError("cityError", "City must be 2 to 30 characters.");
             return false;
         }
+        setError("cityError", "");
         return true;
     }
 
@@ -175,6 +202,7 @@ document.addEventListener("DOMContentLoaded", function () {
             setError("stateError", "Please select a state.");
             return false;
         }
+        setError("stateError", "");
         return true;
     }
 
@@ -187,11 +215,12 @@ document.addEventListener("DOMContentLoaded", function () {
             zipInput.value = value;
         }
 
-        const pattern = /^\d{5}(-\d{4})?$/;
+        const pattern = /^\d{5}$/;
         if (!pattern.test(value)) {
-            setError("zipError", "Zip must be 5 digits or ZIP+4 like 77006-1234.");
+            setError("zipError", "Zip must be exactly 5 digits.");
             return false;
         }
+        setError("zipError", "");
         return true;
     }
 
@@ -201,49 +230,33 @@ document.addEventListener("DOMContentLoaded", function () {
         value = value.replace(/\s+/g, "");
         input.value = value;
 
-        const pattern = /^[a-z][a-z0-9_-]{4,29}$/;
+        const pattern = /^[a-z][a-z0-9_-]{4,19}$/;
         if (!pattern.test(value)) {
-            setError("userIdError", "User ID must be 5-30 chars, start with a letter, and use only letters, numbers, _ or -.");
+            setError("userIdError", "User ID must be 5-20 chars, start with a letter, and use only letters, numbers, _ or -.");
             return false;
         }
+        setError("userIdError", "");
         return true;
     }
 
     function validatePassword() {
         const userId = getValue("user_id").toLowerCase();
-        const firstName = getValue("first_name").toLowerCase();
-        const lastName = getValue("last_name").toLowerCase();
         const password = getValue("password");
 
-        const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=<>?,.:;\/\\|{}\[\]~`]).{8,30}$/;
-
-        if (password.includes('"') || password.includes("'")) {
-            setError("passwordError", "Password cannot contain quotes.");
-            return false;
-        }
+        const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,30}$/;
 
         if (!pattern.test(password)) {
-            setError("passwordError", "Password must be 8-30 chars with uppercase, lowercase, number, and special character.");
+            setError("passwordError", "Password must be 8-30 chars and include uppercase, lowercase, and a number.");
             return false;
         }
 
         const pwLower = password.toLowerCase();
-
-        if (pwLower === userId || (userId !== "" && pwLower.includes(userId))) {
-            setError("passwordError", "Password cannot equal or contain your User ID.");
+        if (pwLower === userId) {
+            setError("passwordError", "Password cannot equal your User ID.");
             return false;
         }
 
-        if (firstName !== "" && pwLower.includes(firstName)) {
-            setError("passwordError", "Password cannot contain your first name.");
-            return false;
-        }
-
-        if (lastName !== "" && pwLower.includes(lastName)) {
-            setError("passwordError", "Password cannot contain your last name.");
-            return false;
-        }
-
+        setError("passwordError", "");
         return true;
     }
 
@@ -255,14 +268,12 @@ document.addEventListener("DOMContentLoaded", function () {
             setError("confirmPasswordError", "Passwords do not match.");
             return false;
         }
+        setError("confirmPasswordError", "");
         return true;
     }
 
     function validateAll() {
-        clearErrors();
-
         let ok = true;
-
         ok = validateFirstName() && ok;
         ok = validateMiddleInit() && ok;
         ok = validateLastName() && ok;
@@ -278,7 +289,6 @@ document.addEventListener("DOMContentLoaded", function () {
         ok = validateUserId() && ok;
         ok = validatePassword() && ok;
         ok = validateConfirmPassword() && ok;
-
         return ok;
     }
 
@@ -348,10 +358,61 @@ document.addEventListener("DOMContentLoaded", function () {
         setStatus("reviewDobStatus", validateDob(), "Invalid date");
         setStatus("reviewEmailStatus", validateEmail(), "Invalid email");
         setStatus("reviewPhoneStatus", validatePhone(), "Invalid phone");
-        setStatus("reviewAddressStatus", validateAddress1() && validateCity() && validateState() && validateZip(), "Missing or invalid address/zip");
+        setStatus("reviewAddressStatus", validateAddress1() && validateCity() && validateState() && validateZip(), "Missing or invalid address");
     }
 
-    // ===================== EVENTS =====================
+    // ===================== LIVE EVENTS =====================
+    document.getElementById("first_name").addEventListener("input", validateFirstName);
+    document.getElementById("first_name").addEventListener("blur", validateFirstName);
+
+    document.getElementById("middle_init").addEventListener("input", validateMiddleInit);
+    document.getElementById("middle_init").addEventListener("blur", validateMiddleInit);
+
+    document.getElementById("last_name").addEventListener("input", validateLastName);
+    document.getElementById("last_name").addEventListener("blur", validateLastName);
+
+    document.getElementById("dob").addEventListener("input", validateDob);
+    document.getElementById("dob").addEventListener("blur", validateDob);
+
+    document.getElementById("ssn").addEventListener("input", function () {
+        formatSsnInput();
+        validateSsn();
+    });
+    document.getElementById("ssn").addEventListener("blur", validateSsn);
+
+    document.getElementById("email").addEventListener("input", validateEmail);
+    document.getElementById("email").addEventListener("blur", validateEmail);
+
+    document.getElementById("phone").addEventListener("input", validatePhone);
+    document.getElementById("phone").addEventListener("blur", validatePhone);
+
+    document.getElementById("address1").addEventListener("input", validateAddress1);
+    document.getElementById("address1").addEventListener("blur", validateAddress1);
+
+    document.getElementById("address2").addEventListener("input", validateAddress2);
+    document.getElementById("address2").addEventListener("blur", validateAddress2);
+
+    document.getElementById("city").addEventListener("input", validateCity);
+    document.getElementById("city").addEventListener("blur", validateCity);
+
+    document.getElementById("state").addEventListener("change", validateState);
+
+    document.getElementById("zip").addEventListener("input", validateZip);
+    document.getElementById("zip").addEventListener("blur", validateZip);
+
+    document.getElementById("user_id").addEventListener("input", validateUserId);
+    document.getElementById("user_id").addEventListener("blur", validateUserId);
+
+    document.getElementById("password").addEventListener("input", function () {
+        validatePassword();
+        validateConfirmPassword();
+    });
+    document.getElementById("password").addEventListener("blur", validatePassword);
+
+    document.getElementById("confirm_password").addEventListener("input", validateConfirmPassword);
+    document.getElementById("confirm_password").addEventListener("blur", validateConfirmPassword);
+
+    // ===================== BUTTON EVENTS =====================
     reviewBtn.addEventListener("click", function () {
         const passed = validateAll();
 
@@ -359,11 +420,12 @@ document.addEventListener("DOMContentLoaded", function () {
             buildReview();
             reviewSection.classList.remove("hidden");
             finalSubmitBtn.disabled = false;
+            reviewBtn.textContent = "VALIDATE";
             reviewSection.scrollIntoView({ behavior: "smooth" });
         } else {
             reviewSection.classList.add("hidden");
             finalSubmitBtn.disabled = true;
-            alert("Please correct the errors on the form before review.");
+            alert("Please correct the errors on the form before submit.");
         }
     });
 
@@ -372,7 +434,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (!passed || finalSubmitBtn.disabled) {
             e.preventDefault();
-            alert("Please click Review Information and fix all errors before final submit.");
+            alert("Please click VALIDATE and fix all errors before final submit.");
         }
     });
 
@@ -386,22 +448,5 @@ document.addEventListener("DOMContentLoaded", function () {
                 healthValue.textContent = getHealthText(5);
             }
         }, 0);
-    });
-
-    // lower-case user id on blur
-    const userIdInput = document.getElementById("user_id");
-    userIdInput.addEventListener("blur", function () {
-        this.value = this.value.trim().toLowerCase().replace(/\s+/g, "");
-        finalSubmitBtn.disabled = true;
-    });
-
-    // re-check after edits
-    form.querySelectorAll("input, textarea, select").forEach(function (el) {
-        el.addEventListener("input", function () {
-            finalSubmitBtn.disabled = true;
-        });
-        el.addEventListener("change", function () {
-            finalSubmitBtn.disabled = true;
-        });
     });
 });

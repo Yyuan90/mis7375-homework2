@@ -236,3 +236,8 @@ a.social:hover {
 .back-link {
   font-weight: 700;
 }
+.error-message {
+  color: red;
+  font-size: 13px;
+  margin-top: 4px;
+}

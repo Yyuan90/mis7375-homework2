@@ -7,15 +7,22 @@ Version: 1.0
 Description: Patient Registration Form (client-side only) with external CSS, banner/logo, dynamic date, and a form aligned using a table.
 -->
 
+<!--
+Program name: patient-form.html
+Author: YOUR NAME as it is in the UH roster
+Date created: YYYY-MM-DD
+Date last edited: YYYY-MM-DD
+Version: 2.0
+Description: HoustonCare Medical patient registration form for homework 2 with external CSS and external JavaScript.
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>HoustonCare Medical - Patient Registration</title>
-
-  <!-- External CSS file (required) -->
   <link rel="stylesheet" href="style.css">
-<script src="scripts.js" defer></script>
+  <script src="scripts.js" defer></script>
 </head>
 
 <body>
@@ -43,10 +50,8 @@ Description: Patient Registration Form (client-side only) with external CSS, ban
   <div id="main">
     <h2>Create Your Account</h2>
 
-    <!-- NOTE: client-side only => do NOT include method -->
-    <form action="thankyou.html">
-
-      <!-- Use TABLE to align fields (required) -->
+    <form action="thankyou.html" id="patientForm">
+      <!-- Use TABLE to align fields -->
       <table class="form-table">
         <tr>
           <td class="labelcell"><label for="first_name">First Name (max 30):</label></td>
@@ -62,7 +67,6 @@ Description: Patient Registration Form (client-side only) with external CSS, ban
 
           <td class="labelcell"><label for="dob">Date of Birth:</label></td>
           <td>
-            <!-- Use text to enforce MM/DD/YYYY requirement -->
             <input type="text" id="dob" name="dob" placeholder="MM/DD/YYYY"
                    pattern="^(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])\/\d{4}$"
                    title="Use MM/DD/YYYY format" required>
@@ -70,9 +74,8 @@ Description: Patient Registration Form (client-side only) with external CSS, ban
         </tr>
 
         <tr>
-          <td class="labelcell"><label for="ssn">Social Security (9 digits):</label></td>
+          <td class="labelcell"><label for="ssn">Social Security (9-11 digits):</label></td>
           <td>
-            <!-- obscured / masked -->
             <input type="password" id="ssn" name="ssn" minlength="9" maxlength="11"
                    placeholder="*********"
                    title="Enter 9-11 characters, do NOT use real SSN" required>
@@ -119,42 +122,56 @@ Description: Patient Registration Form (client-side only) with external CSS, ban
         <tr>
           <td class="labelcell"><label for="zip">Zip Code (5-10 digits):</label></td>
           <td>
-            <!-- NOT a NUMBER type -->
             <input type="text" id="zip" name="zip" minlength="5" maxlength="10"
-                   pattern="^\d{5}(\d{1,5})?$"
-                   title="Enter 5 to 10 digits" required>
+                   pattern="^\d{5}(-\d{4})?$|^\d{5,10}$"
+                   title="Enter 5 digits, ZIP+4, or up to 10 digits" required>
           </td>
 
           <td class="labelcell"><label for="user_id">Desired User ID (max 20):</label></td>
           <td>
             <input type="text" id="user_id" name="user_id" maxlength="20"
-                   pattern="^[A-Za-z0-9]{4,20}$"
-                   title="4-20 letters/numbers only" required>
+                   pattern="^[A-Za-z0-9_-]{4,20}$"
+                   title="4-20 letters, numbers, underscore, or dash" required>
           </td>
         </tr>
 
         <tr>
           <td class="labelcell"><label for="password">Password:</label></td>
           <td>
-            <input type="password" id="password" name="password" minlength="8" maxlength="50" required>
+            <input type="password" id="password" name="password" minlength="8" maxlength="30" required>
           </td>
 
           <td class="labelcell"><label for="confirm_password">Re-enter Password:</label></td>
           <td>
-            <input type="password" id="confirm_password" name="confirm_password" minlength="8" maxlength="50" required>
+            <input type="password" id="confirm_password" name="confirm_password" minlength="8" maxlength="30" required>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="labelcell"><label for="health">Health Rating (1-10):</label></td>
+          <td colspan="3">
+            <input type="range" id="health" name="health" min="1" max="10" value="5">
+            <span id="healthValue">5</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="4" style="text-align:center;">
+            <input type="reset" value="CLEAR AND START OVER" class="btn secondary">
+            <input type="submit" value="Submit" class="btn primary">
           </td>
         </tr>
       </table>
 
-      <!-- Text area requirement: at least 3 lines x 50 columns -->
+      <!-- Text area -->
       <div class="section">
         <label for="symptoms"><strong>Current Symptoms</strong> (text area 3 lines x 50 columns):</label><br>
-        <textarea id="symptoms" name="symptoms" rows="3" cols="50" required></textarea>
+        <textarea id="symptoms" name="symptoms" rows="3" cols="50"></textarea>
       </div>
 
-      <!-- Checkboxes: 1 section, 5+ choices -->
+      <!-- Checkboxes -->
       <div class="section card">
-        <div class="section-title">Medical History (check 0+):</div>
+        <div class="section-title">Medical History (check all that apply):</div>
         <label><input type="checkbox" name="medical_history" value="Diabetes"> Diabetes</label><br>
         <label><input type="checkbox" name="medical_history" value="High BP"> High BP</label><br>
         <label><input type="checkbox" name="medical_history" value="Asthma"> Asthma</label><br>
@@ -162,7 +179,7 @@ Description: Patient Registration Form (client-side only) with external CSS, ban
         <label><input type="checkbox" name="medical_history" value="Heart Condition"> Heart Condition</label>
       </div>
 
-      <!-- Radio Buttons: at least 3 sets -->
+      <!-- Radio Buttons -->
       <div class="section card">
         <div class="section-title">Gender:</div>
         <label><input type="radio" name="gender" value="Male" required> Male</label><br>
@@ -181,19 +198,6 @@ Description: Patient Registration Form (client-side only) with external CSS, ban
         <label><input type="radio" name="has_insurance" value="Yes" required> Yes</label>
         <label><input type="radio" name="has_insurance" value="No"> No</label>
       </div>
-
-      <!-- Slider: at least 1 -->
-      <div class="section card">
-        <div class="section-title">Health Rating (1 to 10 slider):</div>
-        <input type="range" id="health_rating" name="health_rating" min="1" max="10" value="5">
-        <span id="ratingValue">5</span>
-      </div>
-
-      <!-- Buttons -->
-      <div class="buttons">
-        <input type="reset" value="CLEAR AND START OVER" class="btn secondary">
-        <input type="submit" value="Submit" class="btn primary">
-      </div>
     </form>
   </div>
 
@@ -206,9 +210,7 @@ Description: Patient Registration Form (client-side only) with external CSS, ban
     </div>
 
     <div class="footer-center">
-      <button type="button" class="contact-btn" onclick="alert('Contact us at: info@houstoncaremedical.com');">
-        CONTACT US
-      </button>
+      <button type="button" class="contact-btn">CONTACT US</button>
     </div>
 
     <div class="footer-right">
@@ -217,22 +219,5 @@ Description: Patient Registration Form (client-side only) with external CSS, ban
       <a href="#" class="social">Instagram</a>
     </div>
   </div>
-
-  <!-- ===================== INLINE JAVASCRIPT (DATE + SLIDER) ===================== -->
-  <script>
-    // Dynamic Date in banner
-    (function () {
-      const d = new Date();
-      const opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      document.getElementById('todayText').textContent = d.toLocaleDateString('en-US', opts);
-    })();
-
-    // Slider value display
-    const slider = document.getElementById('health_rating');
-    const output = document.getElementById('ratingValue');
-    slider.addEventListener('input', function () {
-      output.textContent = slider.value;
-    });
-  </script>
 </body>
 </html>

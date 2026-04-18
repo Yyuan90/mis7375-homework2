@@ -1,0 +1,63 @@
+<!--
+Program name: thankyou.html
+Author: Ye Yuan
+Date created: 2026-02-26
+Date last edited: 2026-04-17
+Version: 2.0
+Description: Thank you page for HoustonCare Medical homework 2.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HoustonCare Medical - Thank You</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="scripts.js" defer></script>
+</head>
+<body>
+  <div id="header">
+    <div class="banner-left">
+      <img src="7375mis.png" alt="HoustonCare Medical Logo" class="logo">
+    </div>
+
+    <div class="banner-center">
+      <h1>HoustonCare Medical</h1>
+      <div class="subtitle">Patient Registration</div>
+    </div>
+
+    <div class="banner-right">
+      <div class="today">
+        Today is: <span id="todayText"></span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div id="main">
+    <div class="review-box">
+      <h2>Thank you for your submission.</h2>
+      <p>Your information has been reviewed and submitted successfully.</p>
+    </div>
+  </div>
+
+  <div id="footer">
+    <div class="footer-left">
+      <strong>HoustonCare Medical</strong><br>
+      PO BOX 18881<br>
+      Sugar Land TX 77496
+    </div>
+
+    <div class="footer-center">
+      <button type="button" class="contact-btn">CONTACT US</button>
+    </div>
+
+    <div class="footer-right">
+      <a href="#" class="social">Facebook</a>
+      <a href="#" class="social">Twitter</a>
+      <a href="#" class="social">Instagram</a>
+    </div>
+  </div>
+</body>
+</html>

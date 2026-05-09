@@ -1,1 +1,250 @@
+/*
+Program name: style4.css
+Author: Ye Yuan
+Date created: 2026-02-26
+Date last edited: 2026-05-08
+Version: 1.0
+Description: External stylesheet for patient registration form. Includes non-default fonts/colors and multiple selector styles (tag, class, id).
+*/
+/* tag selector */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #eef2f7;
+  color: #1b1f24;
+  margin: 0;
+  padding: 0;
+}
 
+/* id selector */
+#header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0f2f4a;
+  color: white;
+  padding: 14px 18px;
+}
+
+.banner-left {
+  width: 170px;
+}
+
+.banner-center {
+  text-align: center;
+  flex: 1;
+}
+
+.banner-center h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.subtitle {
+  font-size: 15px;
+}
+
+.banner-right {
+  width: 250px;
+  text-align: right;
+  font-size: 14px;
+}
+
+.logo {
+  height: 42px;
+  width: auto;
+}
+
+.divider {
+  border: none;
+  border-top: 2px solid #d7dde7;
+  margin: 0;
+}
+
+#main {
+  padding: 18px;
+}
+
+#main h2 {
+  margin-top: 0;
+  color: #0f2f4a;
+}
+
+.form-table {
+  width: 100%;
+  background: white;
+  border: 1px solid #d7dde7;
+  border-radius: 10px;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+}
+
+.form-table td {
+  padding: 10px;
+  vertical-align: top;
+}
+
+.labelcell {
+  width: 190px;
+  font-weight: bold;
+}
+
+/* attribute selectors */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select,
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px;
+  border: 1px solid #c5d0de;
+  border-radius: 6px;
+  background-color: #f8fbff;
+}
+
+input[type="range"] {
+  width: 240px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.section {
+  margin-top: 14px;
+}
+
+.card {
+  background: white;
+  border: 1px solid #d7dde7;
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.section-title {
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #0f2f4a;
+}
+
+.action-row {
+  text-align: center;
+}
+
+.btn {
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.btn.primary {
+  background-color: #0f2f4a;
+  color: white;
+}
+
+.btn.secondary {
+  background-color: #dbe4ef;
+  color: #0f2f4a;
+}
+
+.btn.success {
+  background-color: #1d7f45;
+  color: white;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error-message {
+  display: block;
+  color: red;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.review-box {
+  margin-top: 20px;
+  background: white;
+  border: 1px solid #d7dde7;
+  border-radius: 10px;
+  padding: 18px;
+}
+
+.hidden {
+  display: none;
+}
+
+.review-grid {
+  display: grid;
+  grid-template-columns: 220px 1fr 260px;
+  gap: 10px 18px;
+  margin-bottom: 20px;
+}
+
+.review-grid.two-col {
+  grid-template-columns: 220px 1fr;
+}
+
+.review-label {
+  font-weight: bold;
+}
+
+.review-value {
+  white-space: pre-line;
+}
+
+.review-status.pass {
+  color: green;
+  font-weight: bold;
+}
+
+.review-status.error {
+  color: red;
+  font-weight: bold;
+}
+
+#footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  border-top: 2px solid #d7dde7;
+  padding: 14px 18px 20px 18px;
+  margin-top: 20px;
+}
+
+.contact-btn {
+  background-color: #7b1fa2;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* hyperlink + visited + hover */
+a.social:link {
+  color: #1f5fbf;
+  text-decoration: none;
+}
+
+a.social:visited {
+  color: #6b2ea1;
+}
+
+a.social:hover {
+  text-decoration: underline;
+}
+
+#header {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background-color: #2f3e4e;
+}

@@ -1,4 +1,28 @@
 document.addEventListener("DOMContentLoaded", function () {
+    fetch("states.json")
+    .then(response => response.json())
+    .then(data => {
+
+        const stateSelect =
+            document.getElementById("state");
+
+        stateSelect.innerHTML =
+            '<option value="">Select</option>';
+
+        data.forEach(state => {
+
+            const option =
+                document.createElement("option");
+
+            option.value = state;
+            option.textContent = state;
+
+            stateSelect.appendChild(option);
+
+        });
+
+    })
+    .catch(error => console.log(error));
     const form = document.getElementById("patientForm");
     const todayText = document.getElementById("todayText");
     const reviewBtn = document.getElementById("reviewBtn");

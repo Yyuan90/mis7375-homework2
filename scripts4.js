@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const firstNameInput = document.getElementById("first_name");
+    const welcomeMessage = document.getElementById("welcomeMessage");
+    const rememberMe = document.getElementById("rememberMe");
     fetch("states.json")
     .then(response => response.json())
     .then(data => {
@@ -31,6 +34,42 @@ document.addEventListener("DOMContentLoaded", function () {
     const reviewSection = document.getElementById("reviewSection");
 
     // ===================== DYNAMIC DATE =====================
+   function setCookie(name, value, hours) {
+    const d = new Date();
+    d.setTime(d.getTime() + (hours * 60 * 60 * 1000));
+    let expires = "expires=" + d.toUTCString();
+    document.cookie = name + "=" + value + ";" + expires + ";path=/";
+}
+
+function getCookie(name) {
+    let cookieName = name + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+
+    for(let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+
+        if (c.indexOf(cookieName) == 0) {
+            return c.substring(cookieName.length, c.length);
+        }
+    }
+
+    return "";
+}
+
+const savedName = getCookie("firstName");
+
+if(savedName !== "") {
+    welcomeMessage.textContent = "Welcome back, " + savedName;
+    firstNameInput.value = savedName;
+    rememberMe.checked = true;
+} else {
+    welcomeMessage.textContent = "Welcome new user";
+}
     const today = new Date();
     const dateOptions = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
     if (todayText) {
@@ -460,6 +499,13 @@ document.addEventListener("DOMContentLoaded", function () {
             e.preventDefault();
             alert("Please click VALIDATE and fix all errors before final submit.");
         }
+        else {
+    if (rememberMe.checked) {
+        setCookie("firstName", firstNameInput.value.trim(), 48);
+    } else {
+        setCookie("firstName", "", -1);
+    }
+}
     });
 
     resetBtn.addEventListener("click", function () {

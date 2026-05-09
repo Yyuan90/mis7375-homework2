@@ -85,6 +85,15 @@ rememberMe.addEventListener("change", function () {
         welcomeMessage.textContent = "Welcome new user";
     }
 });
+ const emailInput = document.getElementById("email");
+
+if(localStorage.getItem("savedEmail")) {
+    emailInput.value = localStorage.getItem("savedEmail");
+}
+
+emailInput.addEventListener("input", function () {
+    localStorage.setItem("savedEmail", emailInput.value);
+});   
     const today = new Date();
     const dateOptions = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
     if (todayText) {

@@ -11,7 +11,7 @@ Description: HoustonCare Medical homework 4 form with real-time JavaScript valid
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>HoustonCare Medical - Homework 3 Validation Form</title>
+  <title>HoustonCare Medical - Homework 4 Validation Form</title>
   <link rel="stylesheet" href="style4.css">
 <script src="scripts4.js" defer></script>
 </head>
@@ -24,9 +24,10 @@ Description: HoustonCare Medical homework 4 form with real-time JavaScript valid
     </div>
 
     <div class="banner-center">
-      <h1>HoustonCare Medical</h1>
-      <div class="subtitle">Patient Registration</div>
-    </div>
+  <h1>HoustonCare Medical</h1>
+  <div class="subtitle">Patient Registration</div>
+  <div id="welcomeMessage">Welcome new user</div>
+</div>
 
     <div class="banner-right">
       <div class="today">
@@ -65,7 +66,15 @@ Description: HoustonCare Medical homework 4 form with real-time JavaScript valid
             <span id="middleInitError" class="error-message"></span>
           </td>
         </tr>
-
+       <tr>
+  <td class="labelcell"></td>
+  <td colspan="3">
+    <label>
+      <input type="checkbox" id="rememberMe">
+      Remember Me
+    </label>
+  </td>
+</tr>
         <tr>
           <td class="labelcell"><label for="last_name">Last Name (1-30):</label></td>
           <td>

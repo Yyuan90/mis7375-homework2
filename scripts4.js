@@ -70,6 +70,21 @@ if(savedName !== "") {
 } else {
     welcomeMessage.textContent = "Welcome new user";
 }
+    firstNameInput.addEventListener("input", function () {
+    if (rememberMe.checked && firstNameInput.value.trim() !== "") {
+        setCookie("firstName", firstNameInput.value.trim(), 48);
+    }
+});
+
+rememberMe.addEventListener("change", function () {
+    if (rememberMe.checked && firstNameInput.value.trim() !== "") {
+        setCookie("firstName", firstNameInput.value.trim(), 48);
+        welcomeMessage.textContent = "Welcome back, " + firstNameInput.value.trim();
+    } else {
+        setCookie("firstName", "", -1);
+        welcomeMessage.textContent = "Welcome new user";
+    }
+});
     const today = new Date();
     const dateOptions = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
     if (todayText) {
